@@ -1,0 +1,2166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ClassifAds</title>
+    
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family: "Inter", Arial, sans-serif;
+
+            background: #f7fbfd;
+
+        }
+
+
+        /* =================================
+           MAIN PAGE
+        ================================= */
+
+        .page {
+
+            min-height: 100vh;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 30px;
+
+            background:
+
+                radial-gradient(
+                    circle at 5% 22%,
+                    rgba(37,169,235,.22),
+                    transparent 17%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #ffffff 0%,
+                    #ffffff 52%,
+                    #f2faff 100%
+                );
+
+            box-shadow:
+
+                0 0 0 1px
+                rgba(91,194,235,.25),
+
+                0 15px 50px
+                rgba(45,133,180,.12);
+
+        }
+
+
+        /* =================================
+           LEFT BLUE LIGHT
+        ================================= */
+
+        .left-glow {
+
+            position: absolute;
+
+            width: 420px;
+            height: 420px;
+
+            left: -220px;
+            top: 120px;
+
+            border-radius: 50%;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    rgba(27,164,239,.48),
+                    rgba(27,164,239,.08) 50%,
+                    transparent 72%
+                );
+
+            filter: blur(25px);
+
+            pointer-events: none;
+
+        }
+
+
+        /* =================================
+           RIGHT LIGHT
+        ================================= */
+
+        .right-glow {
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            right: -180px;
+            bottom: -220px;
+
+            border-radius: 50%;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    rgba(39,188,255,.15),
+                    transparent 70%
+                );
+
+            filter: blur(35px);
+
+            pointer-events: none;
+
+        }
+
+
+        /* =================================
+           NAVBAR
+        ================================= */
+
+        .nav-link {
+
+            position: relative;
+
+            color: #5c646a;
+
+            transition:
+
+                color .25s ease,
+                transform .25s ease;
+
+        }
+
+
+        .nav-link::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+
+            bottom: -9px;
+
+            height: 2px;
+
+            border-radius: 10px;
+
+            background: #0878d7;
+
+            transform: scaleX(0);
+
+            transform-origin: center;
+
+            transition: .25s ease;
+
+        }
+
+
+        .nav-link:hover {
+
+            color: #0878d7;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        .nav-link:hover::after {
+
+            transform: scaleX(1);
+
+        }
+
+
+        .nav-link.active {
+
+            color: #0878d7;
+
+        }
+
+
+        .nav-link.active::after {
+
+            transform: scaleX(1);
+
+        }
+
+
+        /* =================================
+           DASHBOARD
+        ================================= */
+
+        .dashboard-button {
+
+            transition: .25s ease;
+
+        }
+
+
+        .dashboard-button:hover {
+
+            color: #0878d7;
+
+        }
+
+
+        .dashboard-arrow {
+
+            transition: transform .25s ease;
+
+        }
+
+
+        .dashboard-button.open
+        .dashboard-arrow {
+
+            transform: rotate(180deg);
+
+        }
+
+
+        .dashboard-menu {
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform:
+                translateY(-8px)
+                scale(.98);
+
+            transition:
+
+                opacity .2s ease,
+                transform .2s ease,
+                visibility .2s ease;
+
+        }
+
+
+        .dashboard-menu.open {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateY(0)
+                scale(1);
+
+        }
+
+
+        .dashboard-item {
+
+            transition:
+
+                background .2s ease,
+                color .2s ease,
+                padding-left .2s ease;
+
+        }
+
+
+        .dashboard-item:hover {
+
+            background: #eff8ff;
+
+            color: #0878d7;
+
+            padding-left: 18px;
+
+        }
+
+
+        /* =================================
+           LOGO
+        ================================= */
+
+        .logo-symbol {
+
+            width: 43px;
+            height: 43px;
+
+            position: relative;
+
+        }
+
+
+        .logo-piece {
+
+            width: 14px;
+            height: 14px;
+
+            position: absolute;
+
+            transform: rotate(45deg);
+
+            border-radius: 3px;
+
+        }
+
+
+        .logo-1 {
+
+            left: 2px;
+            top: 4px;
+
+            background: #52c7e8;
+
+        }
+
+
+        .logo-2 {
+
+            right: 2px;
+            top: 4px;
+
+            background: #208ed5;
+
+        }
+
+
+        .logo-3 {
+
+            left: 2px;
+            bottom: 4px;
+
+            background: #1c74c8;
+
+        }
+
+
+        .logo-4 {
+
+            right: 2px;
+            bottom: 4px;
+
+            background: #55bde1;
+
+        }
+
+
+        .logo-center {
+
+            width: 14px;
+            height: 14px;
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            border-radius: 50%;
+
+            background: white;
+
+            border: 3px solid #2186cf;
+
+        }
+
+
+        /* =================================
+           SEARCH CONTAINER
+        ================================= */
+
+        .search-box {
+
+            width: 100%;
+
+            height: 65px;
+
+            border: 3px solid #abc4d2;
+
+            border-radius: 19px;
+
+            background: rgba(255,255,255,.96);
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 0 20px;
+
+            cursor: text;
+
+            position: relative;
+
+            transition:
+
+                border-color .25s ease,
+                box-shadow .25s ease,
+                transform .25s ease,
+                background .25s ease;
+
+        }
+
+
+        /* =================================
+           SEARCH HOVER
+        ================================= */
+
+        .search-box:hover {
+
+            border-color: #5bb8e8;
+
+            box-shadow:
+
+                0 0 0 4px
+                rgba(8,120,215,.06),
+
+                0 10px 25px
+                rgba(8,120,215,.08);
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        /* =================================
+           SEARCH ACTIVE
+        ================================= */
+
+        .search-box.focused {
+
+            border-color: #0878d7;
+
+            background: #ffffff;
+
+            box-shadow:
+
+                0 0 0 5px
+                rgba(8,120,215,.12),
+
+                0 12px 30px
+                rgba(8,120,215,.14);
+
+            transform:
+                translateY(-3px);
+
+        }
+
+
+        /* =================================
+           SEARCH INPUT
+        ================================= */
+
+        .search-input {
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            font-size: 14px;
+
+            color: #52616b;
+
+            width: 100%;
+
+        }
+
+
+        .search-input:focus {
+
+            color: #0878d7;
+
+        }
+
+
+        .search-input::placeholder {
+
+            color: #9caab2;
+
+            transition:
+                color .25s ease;
+
+        }
+
+
+        .search-box.focused
+        .search-input::placeholder {
+
+            color: #0878d7;
+
+        }
+
+
+        /* =================================
+           LOCATION ICON
+        ================================= */
+
+        .location-icon {
+
+            transition:
+
+                color .25s ease,
+                transform .25s ease;
+
+        }
+
+
+        .search-box.focused
+        .location-icon {
+
+            color: #0878d7;
+
+            transform:
+                scale(1.12);
+
+        }
+
+
+        /* =================================
+           SEARCH DIVIDER
+        ================================= */
+
+        .search-divider {
+
+            transition:
+                background .25s ease;
+
+        }
+
+
+        .search-box.focused
+        .search-divider {
+
+            background: #b9dff5;
+
+        }
+
+
+        /* =================================
+           CATEGORY
+        ================================= */
+
+        #category {
+
+            cursor: pointer;
+
+            transition:
+                color .25s ease;
+
+        }
+
+
+        #category:hover {
+
+            color: #0878d7;
+
+        }
+
+
+        .search-box.focused
+        #category {
+
+            color: #52616b;
+
+        }
+
+
+        /* =================================
+           SEARCH BUTTON
+        ================================= */
+
+        .search-btn {
+
+            margin-top: 35px;
+
+            height: 68px;
+
+            min-width: 230px;
+
+            padding: 0 38px;
+
+            border: none;
+
+            border-radius: 17px;
+
+            background: #0878d7;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 10px 25px
+                rgba(8,120,215,.22);
+
+            transition:
+                .25s ease;
+
+        }
+
+
+        .search-btn:hover {
+
+            background: #056bc2;
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+
+                0 15px 28px
+                rgba(8,120,215,.28);
+
+        }
+
+
+        .search-btn:active {
+
+            transform:
+                translateY(0)
+                scale(.98);
+
+        }
+
+
+        /* =================================
+           HERO IMAGE
+        ================================= */
+
+        .hero-image {
+
+            position: absolute;
+
+            width: min(900px, 67vw);
+
+            max-width: none;
+
+            right: -35px;
+
+            bottom: -20px;
+
+            z-index: 5;
+
+            object-fit: contain;
+
+            filter:
+
+                drop-shadow(
+                    0 30px 30px
+                    rgba(0,103,190,.12)
+                );
+
+            transition:
+
+                transform .7s ease;
+
+        }
+
+
+        .hero-image:hover {
+
+            transform:
+                translateY(-8px)
+                scale(1.015);
+
+        }
+
+
+        /* =================================
+           LOGIN MODAL
+        ================================= */
+
+        .login-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 100;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(5,31,51,.42);
+
+            backdrop-filter:
+                blur(7px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: .25s ease;
+
+        }
+
+
+        .login-overlay.show {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+
+        .login-card {
+
+            width: 100%;
+
+            max-width: 420px;
+
+            background: white;
+
+            border-radius: 24px;
+
+            padding: 32px;
+
+            box-shadow:
+
+                0 30px 80px
+                rgba(0,60,100,.25);
+
+            transform:
+                translateY(20px)
+                scale(.96);
+
+            transition: .3s ease;
+
+        }
+
+
+        .login-overlay.show
+        .login-card {
+
+            transform:
+                translateY(0)
+                scale(1);
+
+        }
+
+
+        /* =================================
+           MOBILE MENU
+        ================================= */
+
+        .mobile-menu {
+
+            transform:
+                translateY(-10px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition: .25s ease;
+
+        }
+
+
+        .mobile-menu.open {
+
+            transform:
+                translateY(0);
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 1024px) {
+
+            .hero-image {
+
+                width: 700px;
+
+                right: -150px;
+
+            }
+
+
+            .hero-content {
+
+                width: 52%;
+
+            }
+
+
+            .hero-title {
+
+                font-size: 45px !important;
+
+            }
+
+        }
+
+
+        @media (max-width: 768px) {
+
+            .page {
+
+                border-radius: 20px;
+
+            }
+
+
+            .desktop-nav {
+
+                display: none;
+
+            }
+
+
+            .mobile-button {
+
+                display: flex;
+
+            }
+
+
+            .hero-section {
+
+                display: flex !important;
+
+                flex-direction: column;
+
+                min-height: auto !important;
+
+                padding-top: 25px;
+
+            }
+
+
+            .hero-content {
+
+                width: 100%;
+
+                padding:
+                    40px 25px 0;
+
+            }
+
+
+            .hero-title {
+
+                font-size: 39px !important;
+
+                line-height:
+                    1.3 !important;
+
+            }
+
+
+            .hero-visual {
+
+                width: 100%;
+
+                height: 430px;
+
+                position: relative !important;
+
+            }
+
+
+            .hero-image {
+
+                width: 700px;
+
+                right: -170px;
+
+                bottom: -70px;
+
+            }
+
+
+            .search-btn {
+
+                min-width: 190px;
+
+                height: 60px;
+
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .hero-title {
+
+                font-size: 33px !important;
+
+            }
+
+
+            .search-box {
+
+                height: 58px;
+
+                padding:
+                    0 14px;
+
+            }
+
+
+            .search-btn {
+
+                width: 180px;
+
+                min-width: 0;
+
+                font-size: 15px;
+
+            }
+
+
+            .hero-visual {
+
+                height: 350px;
+
+            }
+
+
+            .hero-image {
+
+                width: 590px;
+
+                right: -180px;
+
+                bottom: -40px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="p-0 sm:p-2 lg:p-3">
+
+
+<div class="page">
+
+
+    <!-- BACKGROUND -->
+
+    <div class="left-glow"></div>
+
+    <div class="right-glow"></div>
+
+
+    <!-- ==========================================
+         NAVBAR
+    =========================================== -->
+
+    <header class="relative z-50">
+
+
+        <nav
+            class="h-[95px]
+                   px-7
+                   sm:px-10
+                   lg:px-[110px]
+                   flex
+                   items-center
+                   justify-between">
+
+
+            <!-- LOGO -->
+
+            <a href="#"
+               id="logo"
+               class="flex items-center gap-2">
+
+                <div class="logo-symbol">
+
+                    <span class="logo-piece logo-1"></span>
+
+                    <span class="logo-piece logo-2"></span>
+
+                    <span class="logo-piece logo-3"></span>
+
+                    <span class="logo-piece logo-4"></span>
+
+                    <span class="logo-center"></span>
+
+                </div>
+
+
+                <span
+                    class="text-[22px]
+                           font-medium
+                           tracking-[-1px]
+                           text-[#5c6971]">
+
+                    ClassifAds
+
+                </span>
+
+            </a>
+
+
+            <!-- DESKTOP NAV -->
+
+            <div
+                class="desktop-nav
+                       flex
+                       items-center
+                       gap-[48px]">
+
+
+                <a
+                    href="#"
+                    data-nav="home"
+                    class="nav-link active
+                           text-[14px]
+                           font-semibold">
+
+                    HOME
+
+                </a>
+
+
+                <a
+                    href="#"
+                    data-nav="featured"
+                    class="nav-link
+                           text-[14px]
+                           font-semibold">
+
+                    FEATURED
+
+                </a>
+
+
+                <a
+                    href="#"
+                    data-nav="trending"
+                    class="nav-link
+                           text-[14px]
+                           font-semibold">
+
+                    TRENDING
+
+                </a>
+
+
+                <!-- DASHBOARD -->
+
+                <div class="relative">
+
+
+                    <button
+                        id="dashboardButton"
+                        class="dashboard-button
+                               flex
+                               items-center
+                               gap-2
+                               text-[14px]
+                               font-semibold
+                               text-[#5c646a]">
+
+                        DASHBOARD
+
+
+                        <svg
+                            class="dashboard-arrow
+                                   w-4
+                                   h-4"
+                            viewBox="0 0 20 20"
+                            fill="none">
+
+                            <path
+                                d="M5 7L10 12L15 7"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"/>
+
+                        </svg>
+
+                    </button>
+
+
+                    <!-- DROPDOWN -->
+
+                    <div
+                        id="dashboardMenu"
+                        class="dashboard-menu
+                               absolute
+                               right-0
+                               top-[48px]
+                               w-[210px]
+                               rounded-2xl
+                               border
+                               border-slate-100
+                               bg-white
+                               p-2
+                               shadow-[0_20px_50px_rgba(0,80,130,.16)]">
+
+
+                        <button
+                            class="dashboard-item
+                                   block
+                                   w-full
+                                   rounded-xl
+                                   px-4
+                                   py-3
+                                   text-left
+                                   text-sm
+                                   text-slate-600">
+
+                            My Dashboard
+
+                        </button>
+
+
+                        <button
+                            class="dashboard-item
+                                   block
+                                   w-full
+                                   rounded-xl
+                                   px-4
+                                   py-3
+                                   text-left
+                                   text-sm
+                                   text-slate-600">
+
+                            My Listings
+
+                        </button>
+
+
+                        <button
+                            class="dashboard-item
+                                   block
+                                   w-full
+                                   rounded-xl
+                                   px-4
+                                   py-3
+                                   text-left
+                                   text-sm
+                                   text-slate-600">
+
+                            Messages
+
+                        </button>
+
+
+                        <button
+                            class="dashboard-item
+                                   block
+                                   w-full
+                                   rounded-xl
+                                   px-4
+                                   py-3
+                                   text-left
+                                   text-sm
+                                   text-slate-600">
+
+                            Settings
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGIN -->
+
+                <button
+                    id="loginButton"
+                    class="h-[58px]
+                           min-w-[174px]
+                           rounded-[17px]
+                           bg-[#0878d7]
+                           text-white
+                           text-[17px]
+                           font-medium
+                           shadow-[0_9px_22px_rgba(0,110,210,.22)]
+                           hover:bg-[#056bc2]
+                           hover:-translate-y-0.5
+                           transition">
+
+                    Login
+
+                </button>
+
+
+                <span
+                    class="text-xl
+                           text-slate-400
+                           tracking-[3px]">
+
+                    ··
+
+                </span>
+
+            </div>
+
+
+            <!-- MOBILE BUTTON -->
+
+            <button
+                id="mobileButton"
+                class="mobile-button
+                       hidden
+                       items-center
+                       justify-center
+                       w-11
+                       h-11
+                       rounded-xl
+                       bg-blue-600
+                       text-white">
+
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none">
+
+                    <path
+                        d="M4 6H20M4 12H20M4 18H20"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"/>
+
+                </svg>
+
+            </button>
+
+        </nav>
+
+
+        <!-- MOBILE MENU -->
+
+        <div
+            id="mobileMenu"
+            class="mobile-menu
+                   absolute
+                   top-[82px]
+                   left-5
+                   right-5
+                   rounded-2xl
+                   bg-white
+                   border
+                   border-slate-100
+                   shadow-2xl
+                   p-6">
+
+
+            <div class="flex flex-col gap-2">
+
+
+                <button
+                    data-mobile-nav="home"
+                    class="rounded-xl
+                           px-4
+                           py-3
+                           text-left
+                           font-semibold
+                           text-slate-600
+                           hover:bg-blue-50
+                           hover:text-blue-600">
+
+                    HOME
+
+                </button>
+
+
+                <button
+                    data-mobile-nav="featured"
+                    class="rounded-xl
+                           px-4
+                           py-3
+                           text-left
+                           font-semibold
+                           text-slate-600
+                           hover:bg-blue-50
+                           hover:text-blue-600">
+
+                    FEATURED
+
+                </button>
+
+
+                <button
+                    data-mobile-nav="trending"
+                    class="rounded-xl
+                           px-4
+                           py-3
+                           text-left
+                           font-semibold
+                           text-slate-600
+                           hover:bg-blue-50
+                           hover:text-blue-600">
+
+                    TRENDING
+
+                </button>
+
+
+                <button
+                    data-mobile-nav="dashboard"
+                    class="rounded-xl
+                           px-4
+                           py-3
+                           text-left
+                           font-semibold
+                           text-slate-600
+                           hover:bg-blue-50
+                           hover:text-blue-600">
+
+                    DASHBOARD
+
+                </button>
+
+
+                <button
+                    id="mobileLoginButton"
+                    class="mt-2
+                           rounded-xl
+                           bg-blue-600
+                           py-3
+                           text-white">
+
+                    Login
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         HERO
+    =========================================== -->
+
+    <section
+        class="hero-section
+               relative
+               min-h-[calc(100vh-95px)]
+               grid
+               grid-cols-[43%_57%]
+               items-center">
+
+
+        <!-- LEFT -->
+
+        <div
+            class="hero-content
+                   relative
+                   z-30
+                   pl-[7.2vw]
+                   -mt-5">
+
+
+            <h1
+                class="hero-title
+                       text-[53px]
+                       leading-[1.42]
+                       tracking-[-2px]
+                       font-medium
+                       text-[#10283b]">
+
+                Glal Subsee of
+
+                <br>
+
+                <span class="font-semibold">
+
+                    Professional
+
+                </span>
+
+                <br>
+
+                Classified Ads
+
+            </h1>
+
+
+            <!-- SEARCH -->
+
+            <div
+                class="mt-[45px]
+                       w-[535px]
+                       max-w-full">
+
+
+                <div
+                    id="searchBox"
+                    class="search-box">
+
+
+                    <!-- LOCATION -->
+
+                    <svg
+                        class="location-icon
+                               w-[20px]
+                               h-[20px]
+                               mr-3
+                               text-[#aab6bc]
+                               shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none">
+
+                        <path
+                            d="M12 21C12 21 19 15.3 19 9.7C19 5.99 15.87 3 12 3C8.13 3 5 5.99 5 9.7C5 15.3 12 21 12 21Z"
+                            stroke="currentColor"
+                            stroke-width="1.7"/>
+
+                        <circle
+                            cx="12"
+                            cy="9"
+                            r="2.5"
+                            stroke="currentColor"
+                            stroke-width="1.7"/>
+
+                    </svg>
+
+
+                    <!-- WHERE -->
+
+                    <input
+                        id="location"
+                        class="search-input"
+                        placeholder="Where?"
+                        autocomplete="off">
+
+
+                    <!-- DIVIDER -->
+
+                    <span
+                        class="search-divider
+                               mx-4
+                               h-[25px]
+                               w-px
+                               bg-slate-200">
+
+                    </span>
+
+
+                    <!-- CATEGORY -->
+
+                    <select
+                        id="category"
+                        class="w-[150px]
+                               bg-transparent
+                               border-none
+                               outline-none
+                               text-[14px]
+                               text-[#8b989f]">
+
+                        <option>
+                            Car for sale
+                        </option>
+
+                        <option>
+                            Properties
+                        </option>
+
+                        <option>
+                            Electronics
+                        </option>
+
+                        <option>
+                            Jobs
+                        </option>
+
+                        <option>
+                            Services
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SEARCH BUTTON -->
+
+                <button
+                    id="searchButton"
+                    class="search-btn">
+
+                    Search your
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div
+            class="hero-visual
+                   relative
+                   h-[calc(100vh-95px)]
+                   overflow-visible">
+
+
+            <div
+                class="absolute
+                       right-[12%]
+                       top-[10%]
+                       w-[480px]
+                       h-[480px]
+                       rounded-full
+                       bg-cyan-100/30
+                       blur-3xl">
+
+            </div>
+
+
+            <!-- IMAGE -->
+
+            <img
+                src="assets/hero.png"
+                alt="Professional Classified Ads"
+                class="hero-image">
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- ==========================================
+     LOGIN MODAL
+=========================================== -->
+
+<div
+    id="loginOverlay"
+    class="login-overlay">
+
+
+    <div
+        class="login-card">
+
+
+        <div
+            class="flex
+                   items-center
+                   justify-between
+                   mb-7">
+
+
+            <div>
+
+                <p
+                    class="text-sm
+                           font-semibold
+                           text-blue-600">
+
+                    Welcome back
+
+                </p>
+
+
+                <h2
+                    class="mt-1
+                           text-2xl
+                           font-bold
+                           text-slate-800">
+
+                    Login
+
+                </h2>
+
+            </div>
+
+
+            <button
+                id="closeLogin"
+                class="flex
+                       h-10
+                       w-10
+                       items-center
+                       justify-center
+                       rounded-full
+                       bg-slate-100
+                       text-slate-500
+                       hover:bg-slate-200">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <form id="loginForm">
+
+
+            <label
+                class="block
+                       text-sm
+                       font-medium
+                       text-slate-600">
+
+                Email
+
+            </label>
+
+
+            <input
+                type="email"
+                required
+                placeholder="Enter your email"
+                class="mt-2
+                       h-12
+                       w-full
+                       rounded-xl
+                       border
+                       border-slate-200
+                       px-4
+                       outline-none
+                       focus:border-blue-500
+                       focus:ring-4
+                       focus:ring-blue-500/10">
+
+
+            <label
+                class="mt-5
+                       block
+                       text-sm
+                       font-medium
+                       text-slate-600">
+
+                Password
+
+            </label>
+
+
+            <input
+                type="password"
+                required
+                placeholder="Enter your password"
+                class="mt-2
+                       h-12
+                       w-full
+                       rounded-xl
+                       border
+                       border-slate-200
+                       px-4
+                       outline-none
+                       focus:border-blue-500
+                       focus:ring-4
+                       focus:ring-blue-500/10">
+
+
+            <button
+                type="submit"
+                class="mt-6
+                       h-12
+                       w-full
+                       rounded-xl
+                       bg-blue-600
+                       font-semibold
+                       text-white
+                       transition
+                       hover:bg-blue-700">
+
+                Login
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   SEARCH FOCUS
+========================================== */
+
+const searchBox =
+    document.getElementById("searchBox");
+
+const locationInput =
+    document.getElementById("location");
+
+
+/* Focus */
+
+locationInput.addEventListener(
+    "focus",
+    () => {
+
+        searchBox.classList.add(
+            "focused"
+        );
+
+    }
+);
+
+
+/* Blur */
+
+locationInput.addEventListener(
+    "blur",
+    () => {
+
+        searchBox.classList.remove(
+            "focused"
+        );
+
+    }
+);
+
+
+/* Click anywhere inside */
+
+searchBox.addEventListener(
+    "click",
+    () => {
+
+        locationInput.focus();
+
+    }
+);
+
+
+/* ==========================================
+   DASHBOARD DROPDOWN
+========================================== */
+
+const dashboardButton =
+    document.getElementById(
+        "dashboardButton"
+    );
+
+
+const dashboardMenu =
+    document.getElementById(
+        "dashboardMenu"
+    );
+
+
+dashboardButton.addEventListener(
+    "click",
+    (event) => {
+
+        event.stopPropagation();
+
+        dashboardButton.classList.toggle(
+            "open"
+        );
+
+        dashboardMenu.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+/* Close dashboard outside */
+
+document.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            !dashboardButton.contains(
+                event.target
+            ) &&
+            !dashboardMenu.contains(
+                event.target
+            )
+        ) {
+
+            dashboardButton.classList.remove(
+                "open"
+            );
+
+            dashboardMenu.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   NAV ACTIVE
+========================================== */
+
+const navLinks =
+    document.querySelectorAll(
+        ".nav-link"
+    );
+
+
+navLinks.forEach(
+    link => {
+
+        link.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+                navLinks.forEach(
+                    item =>
+                    item.classList.remove(
+                        "active"
+                    )
+                );
+
+                this.classList.add(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+const loginButton =
+    document.getElementById(
+        "loginButton"
+    );
+
+
+const loginOverlay =
+    document.getElementById(
+        "loginOverlay"
+    );
+
+
+const closeLogin =
+    document.getElementById(
+        "closeLogin"
+    );
+
+
+function openLogin() {
+
+    loginOverlay.classList.add(
+        "show"
+    );
+
+}
+
+
+function closeLoginModal() {
+
+    loginOverlay.classList.remove(
+        "show"
+    );
+
+}
+
+
+loginButton.addEventListener(
+    "click",
+    openLogin
+);
+
+
+closeLogin.addEventListener(
+    "click",
+    closeLoginModal
+);
+
+
+/* Click outside modal */
+
+loginOverlay.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            loginOverlay
+        ) {
+
+            closeLoginModal();
+
+        }
+
+    }
+);
+
+
+/* Escape */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeLoginModal();
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   LOGIN FORM
+========================================== */
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+            alert(
+                "Login form submitted successfully."
+            );
+
+        }
+    );
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+document
+    .getElementById("searchButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            const location =
+                locationInput.value.trim();
+
+
+            const category =
+                document
+                .getElementById(
+                    "category"
+                )
+                .value;
+
+
+            if (!location) {
+
+                locationInput.focus();
+
+                searchBox.classList.add(
+                    "focused"
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                `Searching for ${category} in ${location}`
+            );
+
+        }
+    );
+
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+const mobileButton =
+    document.getElementById(
+        "mobileButton"
+    );
+
+
+const mobileMenu =
+    document.getElementById(
+        "mobileMenu"
+    );
+
+
+mobileButton.addEventListener(
+    "click",
+    () => {
+
+        mobileMenu.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+/* Mobile Login */
+
+document
+    .getElementById(
+        "mobileLoginButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            mobileMenu.classList.remove(
+                "open"
+            );
+
+            openLogin();
+
+        }
+    );
+
+
+/* ==========================================
+   MOBILE NAV
+========================================== */
+
+document
+    .querySelectorAll(
+        "[data-mobile-nav]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        "[data-mobile-nav]"
+                    )
+                    .forEach(
+                        item =>
+                        item.classList.remove(
+                            "bg-blue-50",
+                            "text-blue-600"
+                        )
+                    );
+
+                button.classList.add(
+                    "bg-blue-50",
+                    "text-blue-600"
+                );
+
+                mobileMenu.classList.remove(
+                    "open"
+                );
+
+            }
+        );
+
+    });
+
+
+/* ==========================================
+   LOGO INTERACTION
+========================================== */
+
+document
+    .getElementById("logo")
+    .addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
+
